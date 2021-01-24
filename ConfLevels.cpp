@@ -34,12 +34,12 @@ void ConfLevels (void)
     pl.SetConfidenceLevel(0.683); // 68.3% interval
     RooStats::LikelihoodInterval* interval = pl.GetInterval();
 
-    // find the iterval on the first Parameter of Interest (nsig)
+    // find the interval on the first Parameter of Interest (nsig)
     RooRealVar* firstPOI = (RooRealVar*) mc->GetParametersOfInterest()->first();
     double firstlowerLimit = interval->LowerLimit(*firstPOI);
     double firstupperLimit = interval->UpperLimit(*firstPOI);
     
-    // find the iterval on the second Parameter of Interest (mu)
+    // find the interval on the second Parameter of Interest (mu)
     RooRealVar* secondPOI = (RooRealVar*) mc->GetParametersOfInterest()->find("mu");
     double secondlowerLimit = interval->LowerLimit(*secondPOI);
     double secondupperLimit = interval->UpperLimit(*secondPOI);
@@ -82,6 +82,20 @@ void ConfLevels (void)
     
     cout << "95% interval on " <<secondPOI->GetName()<<" is : ["<< secondlowerLimit95 << ", "<< secondupperLimit95 <<"] "<<endl;
 
+    
+    
+    LikelihoodIntervalPlot * plot = new LikelihoodIntervalPlot(interval);
+     plot->SetNPoints(500); 
+     plot->SetRange(40,140);
+     plot->Draw(""); 
+    
+    LikelihoodIntervalPlot * plot90 = new LikelihoodIntervalPlot(interval90);
+     plot90->SetNPoints(500);  
+     plot90->Draw("same");  
+    
+    LikelihoodIntervalPlot * plot95 = new LikelihoodIntervalPlot(interval95);
+     plot95->SetNPoints(500); 
+     plot95->Draw("same");  
     
   
 }
